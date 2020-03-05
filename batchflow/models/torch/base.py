@@ -87,7 +87,7 @@ class TorchModel:
         Loss function, might be defined in multiple formats.
 
         If str, then short ``name``.
-        If tuple, then ``(name, **kwargs)``.
+        If tuple, then ``(name, kwargs)``.
         If dict, then ``{'name': name, **kwargs}``.
         If list, then sequence of losses in previous formats.
 
@@ -110,7 +110,7 @@ class TorchModel:
         Optimizer, might be defined in multiple formats.
 
         If str, then short ``name``.
-        If tuple, then ``(name, **kwargs)``.
+        If tuple, then ``(name, kwargs)``.
         If dict, then ``{'name': name, **kwargs}``.
 
         Name must be one of:
@@ -133,7 +133,7 @@ class TorchModel:
         Each decay might have optional parameters 'first_iter' and 'last_iter'
         that defines iterations between which decay works.
 
-        If tuple, then ``(name, **kwargs)``.
+        If tuple, then ``(name, kwargs)``.
         If dict, then ``{'name': name, **kwargs}``.
         If list, then sequence of decays in previous formats.
 
@@ -1069,7 +1069,7 @@ class TorchModel:
                 loss = sum([loss_fn_(predictions, targets) for loss_fn_ in loss_fn]) / len(loss_fn)
                 mode_loss += loss
                 loss.backward()
-                step['iter'] = step.get('iter', -1) + 1
+                step['iter'] = step.get('iter', 0) + 1
 
                 if self.sync_counter >= sync_frequency:
                     self.sync_counter = 1
